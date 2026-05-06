@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Baby Posters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ─────────────────────────── */
+html,body{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'DM Sans',sans-serif;color:#2A1F18;background:#F5F0E8;}
+*,*::before,*::after{box-sizing:border-box;}
+
+/* ── HOME SCREEN ──────────────────────────── */
+#home{display:block;}
+#poster-view{display:none;}
+
+.home-hdr{background:#B8553C;padding:28px 20px 22px;position:relative;overflow:hidden;}
+.home-hdr::before{content:'';position:absolute;top:-50px;right:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);}
+.home-eye{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:5px;}
+.home-ttl{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;margin-bottom:4px;}
+.home-sub{font-size:13px;color:rgba(255,255,255,0.75);}
+
+.home-main{max-width:540px;margin:0 auto;padding:18px 16px 40px;}
+
+.poster-list{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:24px;}
+.poster-btn{display:flex;align-items:center;gap:14px;padding:13px 16px;width:100%;background:none;border:none;border-bottom:1px solid #F0EAE0;cursor:pointer;text-align:left;min-height:66px;transition:background 0.1s;}
+.poster-btn:last-child{border-bottom:none;}
+.poster-btn:active{background:#FDF5F0;}
+.p-num{width:36px;height:36px;min-width:36px;border-radius:50%;background:#B8553C;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:900;color:#fff;flex-shrink:0;}
+.p-info{flex:1;min-width:0;}
+.p-name{font-family:'Fraunces',serif;font-size:18px;font-weight:900;color:#1C1510;line-height:1.1;letter-spacing:-0.3px;}
+.p-desc{font-size:12px;color:#9A7D6F;margin-top:2px;line-height:1.3;}
+.p-arr{font-size:20px;color:#C4A896;flex-shrink:0;}
+
+.hl-title{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#B8553C;margin-bottom:12px;}
+.hl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.hl-card{background:#1C1510;border-radius:10px;padding:12px 14px;}
+.hl-org{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;}
+.hl-num{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:#F4A261;display:block;letter-spacing:-0.3px;}
+.hl-note{font-size:9px;color:rgba(255,255,255,0.35);display:block;margin-top:1px;}
+.hl-em{background:#7A1A1A;}
+.hl-em .hl-org{color:rgba(255,200,200,0.6);}
+.hl-em .hl-num{color:#FFAAAA;font-size:22px;}
+
+.home-foot{margin-top:20px;font-size:10px;color:#B0A090;text-align:center;line-height:1.5;}
+
+/* ── POSTER VIEW ──────────────────────────── */
+.pv-topbar{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #EAE2D8;display:flex;align-items:center;gap:0;padding:0;box-shadow:0 1px 6px rgba(0,0,0,0.08);}
+.pv-back{flex-shrink:0;padding:12px 14px;font-size:13px;font-weight:700;color:#B8553C;background:none;border:none;cursor:pointer;border-right:1px solid #EAE2D8;white-space:nowrap;}
+.pv-tabs{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:0;flex:1;}
+.pv-tabs::-webkit-scrollbar{display:none;}
+.pv-tab{flex-shrink:0;padding:12px 12px;font-size:12px;font-weight:600;color:#9A7D6F;background:none;border:none;cursor:pointer;border-right:1px solid #F0EAE0;white-space:nowrap;transition:background 0.1s,color 0.1s;}
+.pv-tab:last-child{border-right:none;}
+.pv-tab.active{color:#B8553C;background:#FDF5F0;font-weight:700;}
+.pv-tab:active{background:#FDF0EC;}
+
+.pv-content{padding:16px;max-width:600px;margin:0 auto;}
+
+/* ── POSTER STYLES (inlined from poster files) ── */
+
+*{margin:0;padding:0;box-sizing:border-box}
+.poster{width:100%;background:#FBF6EE;border-radius:5px;overflow:hidden}
+.hdr{background:#B8553C;padding:20px 28px 18px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-40px;right:-30px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.07)}
+.hdr::after{content:'';position:absolute;bottom:-50px;right:40px;width:95px;height:95px;border-radius:50%;background:rgba(255,255,255,.05)}
+.eye{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px}
+.ttl{font-family:'Fraunces',serif;font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;margin-bottom:5px}
+.sub{font-size:11px;color:rgba(255,255,255,.82);font-weight:400;max-width:340px;line-height:1.4}
+.bdg{position:absolute;right:28px;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.13);display:flex;align-items:center;justify-content:center;font-size:24px}
+.con{padding:14px 28px 0}
+.sec{margin-bottom:11px}
+.sl{font-size:8.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#B8553C;margin-bottom:7px}
+.slg{font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4A7C6F;margin-bottom:5px}
+.sla{font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C84040;margin-bottom:5px}
+.div{height:1px;background:#E6DDD0;margin-bottom:11px}
+.srow{display:flex;gap:9px}
+.sb{flex:1;background:#FDF0EC;border-radius:8px;padding:10px 8px;text-align:center;border:1px solid rgba(184,85,60,.10)}
+.sbg{flex:1;background:#E8F4F0;border-radius:8px;padding:10px 8px;text-align:center;border:1px solid rgba(74,124,111,.15)}
+.sn{font-family:'Fraunces',serif;font-size:26px;font-weight:900;color:#B8553C;line-height:1;display:block}
+.sng{font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:#4A7C6F;line-height:1;display:block}
+.sl2{font-size:9.5px;color:#9A7D6F;font-weight:500;margin-top:3px;display:block;line-height:1.3}
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.b{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;font-size:11px;color:#2A1F18;line-height:1.4}
+.bd{width:5px;height:5px;border-radius:50%;background:#B8553C;flex-shrink:0;margin-top:4.5px}
+.bdg2{width:5px;height:5px;border-radius:50%;background:#4A7C6F;flex-shrink:0;margin-top:4.5px}
+.ck{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;font-size:11px;color:#2A1F18;line-height:1.4}
+.cm{font-size:11px;color:#4A7C6F;font-weight:800;flex-shrink:0;margin-top:.5px}
+.xm{font-size:11px;color:#C84040;font-weight:800;flex-shrink:0;margin-top:.5px}
+.am{font-size:11px;color:#9B6E0A;font-weight:800;flex-shrink:0;margin-top:.5px}
+.callout{border-left:3px solid #B8553C;padding:6px 10px;background:#FDF0EC;border-radius:0 5px 5px 0;margin-bottom:8px;font-size:11px;color:#2A1F18;line-height:1.4}
+.cred{border-left:3px solid #C84040;padding:6px 10px;background:#FEF0F0;border-radius:0 5px 5px 0;margin-bottom:8px;font-size:11px;color:#A02828;line-height:1.4;font-weight:600}
+.cgrn{border-left:3px solid #4A7C6F;padding:6px 10px;background:#E8F4F0;border-radius:0 5px 5px 0;margin-bottom:8px;font-size:11px;color:#2D6B60;line-height:1.4}
+.camb{border-left:3px solid #C8860A;padding:6px 10px;background:#FDF5E6;border-radius:0 5px 5px 0;margin-bottom:8px;font-size:11px;color:#7A500A;line-height:1.4}
+.row{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px}
+.nc{width:28px;height:28px;min-width:28px;border-radius:50%;background:#FDF0EC;border:1.5px solid rgba(184,85,60,.25);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:12px;font-weight:900;color:#B8553C;margin-top:2px}
+.rt{font-size:11px;color:#2A1F18;line-height:1.4;flex:1}
+.rs{font-size:9.5px;color:#9A7D6F;display:block;margin-top:1px}
+.poo-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.poo-dot{width:22px;height:22px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.08)}
+.poo-name{font-size:11px;font-weight:600;color:#2A1F18;display:block}
+.poo-desc{font-size:9.5px;color:#9A7D6F;display:block;margin-top:1px}
+.poo-alert{background:#FEF0F0;border-left:3px solid #C84040;border-radius:0 5px 5px 0;padding:5px 10px}
+.ntbl{width:100%;border-collapse:collapse}
+.ntbl th{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A0907F;text-align:left;padding:0 6px 5px 0;border-bottom:1px solid #E6DDD0}
+.ntbl td{padding:5px 6px 5px 0;border-bottom:1px solid #F0E9DF;color:#2A1F18;font-size:11px;vertical-align:top;line-height:1.4}
+.ntbl tr:last-child td{border-bottom:none}
+.dc{font-weight:700;white-space:nowrap}
+.hlt{font-weight:700;color:#4A7C6F}
+.tog-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;padding:7px 10px;border-radius:7px;background:#F5F0E8;border:1px solid #EAE2D8}
+.tog-v{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#B8553C;min-width:44px}
+.tog-n{font-size:11px;font-weight:700;color:#2A1F18}
+.tog-d{font-size:10px;color:#9A7D6F}
+.ms-lbl{font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4A7C6F;margin-bottom:5px}
+.ftr{margin-top:11px;background:#1C1510;padding:12px 28px;display:flex}
+.hl{flex:1}
+.hl+.hl{border-left:1px solid rgba(255,255,255,.10);padding-left:20px}
+.ho{font-size:7.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:1px}
+.hn{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#F4A261;display:block;letter-spacing:-.3px}
+.hno{font-size:8px;color:rgba(255,255,255,.35);display:block;margin-top:1px}
+
+
+/* ── MOBILE RESPONSIVE ────────────────────── */
+@media(min-width:540px){
+  .home-hdr{padding:36px 32px 28px;}
+  .home-ttl{font-size:52px;}
+  .home-main{padding:24px 24px 60px;}
+  .poster-btn:hover{background:#FDF5F0;}
+  .pv-content{padding:24px;}
+  .poster{box-shadow:0 4px 24px rgba(0,0,0,0.10);border-radius:8px;}
+}
+
+@media print{
+  #home{display:none;}
+  .pv-topbar{display:none;}
+  .pv-content{padding:0;}
+  .poster{width:148mm;box-shadow:none;border-radius:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- HOME SCREEN -->
+<div id="home">
+  <div class="home-hdr">
+    <div class="home-eye">Baby Reference · Sydney</div>
+    <div class="home-ttl">Baby Posters</div>
+    <div class="home-sub">10 guides for the first 3 months</div>
+  </div>
+  <div class="home-main">
+    <div class="poster-list" id="poster-list">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="hl-title">Helplines</div>
+    <div class="hl-grid">
+      <div class="hl-card hl-em">
+        <span class="hl-org">Emergency</span>
+        <span class="hl-num">000</span>
+        <span class="hl-note">38°C+ newborn → go now</span>
+      </div>
+      <div class="hl-card">
+        <span class="hl-org">Pregnancy Birth &amp; Baby</span>
+        <span class="hl-num">1800 882 436</span>
+        <span class="hl-note">24 hrs, 7 days — free</span>
+      </div>
+      <div class="hl-card">
+        <span class="hl-org">Breastfeeding — ABA</span>
+        <span class="hl-num">1800 686 268</span>
+        <span class="hl-note">24 hrs, 7 days — free</span>
+      </div>
+      <div class="hl-card">
+        <span class="hl-org">Tresillian NSW</span>
+        <span class="hl-num">1300 272 736</span>
+        <span class="hl-note">7am–11pm, 7 days</span>
+      </div>
+    </div>
+    <p class="home-foot">Based on Red Nose Australia, ABA &amp; NSW Health guidelines.<br>Always check with your GP or maternal health nurse.</p>
+  </div>
+</div>
+
+<!-- POSTER VIEW -->
+<div id="poster-view">
+  <div class="pv-topbar">
+    <button class="pv-back" onclick="showHome()">&#8592; All</button>
+    <div class="pv-tabs" id="pv-tabs">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+  <div class="pv-content">
+    <div class="poster" id="pv-poster">
+      <!-- Poster HTML injected here -->
+    </div>
+  </div>
+</div>
+
+<script>
+const POSTERS = [{"title": "Daily Rhythm", "emoji": "🌞", "desc": "Feed–play–sleep cycle & wake windows", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 1 of 10</div>\n<div class=\"ttl\">Daily Rhythm</div>\n<div class=\"sub\">The feed–play–sleep cycle, wake windows, and tummy time for the first 12 weeks</div>\n<div class=\"bdg\">🌞</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"sl\">The Cycle — Repeat All Day</div>\n<div class=\"srow\">\n<div class=\"sb\"><span class=\"sn\">🍼</span><span class=\"sl2\">Feed first on waking</span></div>\n<div style=\"display:flex;align-items:center;padding:0 2px;color:#B8553C;font-size:20px;font-weight:700\">&#8594;</div>\n<div class=\"sb\"><span class=\"sn\">🌞</span><span class=\"sl2\">Play / tummy time</span></div>\n<div style=\"display:flex;align-items:center;padding:0 2px;color:#B8553C;font-size:20px;font-weight:700\">&#8594;</div>\n<div class=\"sb\"><span class=\"sn\">😴</span><span class=\"sl2\">Sleep</span></div>\n</div>\n<div class=\"callout\" style=\"margin-top:8px\">Feed first on waking — not before sleep. Helps build supply and avoids feed-to-sleep association forming too early.</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Wake Windows by Age</div>\n<table class=\"ntbl\">\n<thead><tr><th>Age</th><th>Max awake time</th><th>Naps per day</th><th>Watch for</th></tr></thead>\n<tbody>\n<tr><td class=\"dc\">0–4 wks</td><td>45–60 min</td><td>4–6 naps</td><td>Yawning, glazed look</td></tr>\n<tr><td class=\"dc\">4–8 wks</td><td>60–75 min</td><td>4–5 naps</td><td>Slowing movements</td></tr>\n<tr><td class=\"dc\">8–12 wks</td><td>75–90 min</td><td>4 naps</td><td>Eye rubbing, grizzling</td></tr>\n</tbody>\n</table>\n<div class=\"camb\" style=\"margin-top:8px\">Overtired = much harder to settle. Act on tired cues before the window closes. See Poster 6 for the full cue guide.</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Tummy Time — Start Day 1</div>\n<div class=\"srow\">\n<div class=\"sbg\"><span class=\"sng\">2–3</span><span class=\"sl2\">min to start</span></div>\n<div class=\"sbg\"><span class=\"sng\">3–5×</span><span class=\"sl2\">per day</span></div>\n<div class=\"sbg\"><span class=\"sng\">30 min</span><span class=\"sl2\">total/day by 3 mo</span></div>\n</div>\n<div class=\"cgrn\" style=\"margin-top:8px\">Awake and supervised only. Firm flat surface. Tummy time on your chest counts! Stop if crying — try again after a rest or feed.</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Evening Cluster Feeding — Completely Normal</div>\n<div class=\"b\"><div class=\"bd\"></div><span>Babies often feed very frequently from around 4–8pm. This is cluster feeding — not low milk supply.</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Usually triggers the longest sleep stretch of the night. Go with it, not against it.</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Peaks at weeks 2–6 then eases. Feed on demand — don't watch the clock.</span></div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "Night Mode", "emoji": "🌙", "desc": "Night feeds, survival tips, what to keep nearby", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 2 of 10</div>\n<div class=\"ttl\">Night Mode</div>\n<div class=\"sub\">Night feed expectations, minimal-stimulation tips, and what to keep by the bed</div>\n<div class=\"bdg\">🌙</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"sl\">What to Expect at Night</div>\n<table class=\"ntbl\">\n<thead><tr><th>Age</th><th>Typical night feeds</th><th>Longest stretch</th></tr></thead>\n<tbody>\n<tr><td class=\"dc\">Wks 1–4</td><td>Every 2–3 hrs (2–4 feeds)</td><td>2–3 hours</td></tr>\n<tr><td class=\"dc\">Wks 5–8</td><td>Every 2–3 hrs (2–3 feeds)</td><td>3–4 hours</td></tr>\n<tr><td class=\"dc\">Wks 9–12</td><td>2–3 feeds typical</td><td>Sometimes 4–5 hrs</td></tr>\n</tbody>\n</table>\n<div class=\"callout\" style=\"margin-top:8px\">This is a rough guide — not a schedule. Some babies do more, some do less. Both can be normal. Track with your maternal health nurse if unsure.</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Night Feed Rules — Minimise Stimulation</div>\n<div class=\"b\"><div class=\"bd\"></div><span><strong>Lights:</strong> Keep very dim — a small lamp on its lowest setting, or a phone torch face-down.</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span><strong>Voice:</strong> Stay quiet and boring. No talking, no eye contact, no cooing.</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span><strong>Nappies:</strong> Change only if poo or very heavy. Wet-only nappies can usually wait until the next feed.</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span><strong>Settle:</strong> Burp gently, then put down drowsy-but-awake — not deeply asleep.</span></div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Night Kit — Keep Everything Within Arm's Reach</div>\n<div class=\"tc\">\n<div>\n<div class=\"slg\">Always</div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Nappies &amp; wipes</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Spare sleepsuit &amp; swaddle</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Muslin cloths &#215;3</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Small dim lamp</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Change mat on floor</span></div>\n</div>\n<div>\n<div class=\"slg\">Breastfeeding</div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Water bottle for mum</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Nipple cream</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Breast pads</span></div>\n<div class=\"slg\" style=\"margin-top:7px\">Formula</div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Pre-made bottles (fridge)</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Bottle warmer nearby</span></div>\n</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Partner Shifts — Split the Load</div>\n<div class=\"tc\">\n<div class=\"callout\"><strong>Block shift:</strong> Partner takes midnight–4am. Feeding parent gets a solid stretch of sleep. Especially useful in weeks 2–6.</div>\n<div class=\"callout\"><strong>Tag-team:</strong> One feeds, the other burps and settles back. Faster for both.</div>\n</div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "Safe Sleep", "emoji": "🛏", "desc": "Red Nose Australia's 6 rules", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 3 of 10</div>\n<div class=\"ttl\">Safe Sleep</div>\n<div class=\"sub\">Red Nose Australia's six rules, safe bassinet setup, and swaddling guide</div>\n<div class=\"bdg\">🛏</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"sl\">Red Nose Australia — 6 Safe Sleep Rules</div>\n<div class=\"row\"><div class=\"nc\">1</div><div class=\"rt\"><strong>Always back to sleep</strong><span class=\"rs\">Never on tummy or side for sleep. Back sleeping keeps the airway clear and protective reflexes working.</span></div></div>\n<div class=\"row\"><div class=\"nc\">2</div><div class=\"rt\"><strong>Face and head always uncovered</strong><span class=\"rs\">Babies regulate temperature through their face and head. Keep it clear at all times, day and night.</span></div></div>\n<div class=\"row\"><div class=\"nc\">3</div><div class=\"rt\"><strong>Smoke-free before and after birth</strong><span class=\"rs\">Includes second-hand and third-hand smoke. Never smoke near baby or in any room where baby sleeps.</span></div></div>\n<div class=\"row\"><div class=\"nc\">4</div><div class=\"rt\"><strong>Safe sleep environment, day and night</strong><span class=\"rs\">Firm, flat mattress meeting Australian standard AS/NZS 8811.1. Feet at the bottom of the cot.</span></div></div>\n<div class=\"row\"><div class=\"nc\">5</div><div class=\"rt\"><strong>Own safe sleep space, same room — 6+ months</strong><span class=\"rs\">Bassinet or cot beside your bed for at least the first 6 months. Not sharing your sleep surface.</span></div></div>\n<div class=\"row\"><div class=\"nc\">6</div><div class=\"rt\"><strong>Breastfeed if possible</strong><span class=\"rs\">Shown to reduce SIDS risk. If formula feeding, the first 5 rules are even more important.</span></div></div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"tc\">\n<div>\n<div class=\"slg\">Safe Bassinet &#10003;</div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Firm, flat mattress (AS/NZS 8811.1)</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Cot meets AS/NZS 2172:2003</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Lightweight blanket, firmly tucked in</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>OR fitted sleeping bag (no hood, arms out)</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Feet touching bottom of cot</span></div>\n</div>\n<div>\n<div class=\"sla\">Never in Bassinet &#10007;</div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Pillows or cot bumpers</span></div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Doonas or loose blankets</span></div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Soft toys or comforters</span></div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Sleep positioners or wedges</span></div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Electric blanket or wheat bag</span></div>\n</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Safe Wrapping / Swaddling</div>\n<div class=\"tc\">\n<div>\n<div class=\"b\"><div class=\"bd\"></div><span>Arms down by sides — not across chest</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Hips and knees <strong>loose</strong> — never wrap tightly below the waist (hip dysplasia risk)</span></div>\n</div>\n<div>\n<div class=\"b\"><div class=\"bd\"></div><span>Fit two fingers under the chest wrap — not too tight</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Stop wrapping when rolling signs appear (~3–4 months)</span></div>\n</div>\n</div>\n<div class=\"cred\" style=\"margin-top:6px\">Never swaddle when bed-sharing or co-sleeping.</div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "Baby Numbers", "emoji": "📊", "desc": "Feeds, nappies & weight by day", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 4 of 10</div>\n<div class=\"ttl\">Baby Numbers</div>\n<div class=\"sub\">At-a-glance cheat sheet for feeds, nappies, poo colour, and weight</div>\n<div class=\"bdg\">📊</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"sl\">Daily Feeds</div>\n<div class=\"srow\">\n<div class=\"sb\"><span class=\"sn\">8–12</span><span class=\"sl2\">feeds per day</span></div>\n<div class=\"sb\"><span class=\"sn\">2–3h</span><span class=\"sl2\">between feeds</span></div>\n<div class=\"sb\"><span class=\"sn\">10–45</span><span class=\"sl2\">min per feed</span></div>\n<div class=\"sb\"><span class=\"sn\">&lt;3h</span><span class=\"sl2\">max gap — wake if needed</span></div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Nappy Count by Day</div>\n<table class=\"ntbl\">\n<thead><tr><th>Day</th><th>Wet nappies</th><th>Poo</th></tr></thead>\n<tbody>\n<tr><td class=\"dc\">Day 1</td><td>1+ wet</td><td>1+ black &amp; sticky (meconium) — normal</td></tr>\n<tr><td class=\"dc\">Day 2</td><td>2+ wet</td><td>2+ dark / greenish</td></tr>\n<tr><td class=\"dc\">Days 3–4</td><td>3–4+ wet, heavier</td><td>Transitioning to brown</td></tr>\n<tr><td class=\"dc hlt\">Day 5+</td><td class=\"hlt\">5+ heavy wet &#10003;</td><td class=\"hlt\">3+ mustard yellow &#10003;</td></tr>\n</tbody>\n</table>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Poo Colour Guide</div>\n<div class=\"poo-row\"><div class=\"poo-dot\" style=\"background:#1A1210\"></div><div><span class=\"poo-name\">Black / tar (meconium)</span><span class=\"poo-desc\">Days 1–2. Normal — passed in utero, now clearing out.</span></div></div>\n<div class=\"poo-row\"><div class=\"poo-dot\" style=\"background:#7A6035\"></div><div><span class=\"poo-name\">Greenish / brown</span><span class=\"poo-desc\">Days 3–4. Transitional. All good — milk is coming in.</span></div></div>\n<div class=\"poo-row\"><div class=\"poo-dot\" style=\"background:#C9960E\"></div><div><span class=\"poo-name\" style=\"color:#4A7C6F\">Mustard yellow — the goal &#10003;</span><span class=\"poo-desc\">Day 5+. Soft, seedy, loose. This is what you want to see.</span></div></div>\n<div class=\"poo-row poo-alert\"><div class=\"poo-dot\" style=\"background:#C84040;border:none\"></div><div><span class=\"poo-name\" style=\"color:#A02828\">Red or white / pale / chalky poo</span><span class=\"poo-desc\" style=\"color:#A02828;font-weight:600\">Not normal. See GP or go to ED today — don't wait.</span></div></div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"tc\">\n<div>\n<div class=\"sl\">Weight Watch</div>\n<div class=\"b\"><div class=\"bd\"></div><span>Lose up to 10% of birth weight in week 1 — normal</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Back to birth weight by ~2 weeks</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Gain 150–200g per week after that</span></div>\n</div>\n<div>\n<div class=\"sl\">Getting Enough? &#10003;</div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>5+ heavy wet nappies from day 5</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Pale, clear wee (not dark or smelly)</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Soft mustard poos by day 5</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Seems content after most feeds</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Back to birth weight by ~2 weeks</span></div>\n</div>\n</div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "Warning Signs", "emoji": "⚠️", "desc": "ED now vs call GP — know the difference", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 5 of 10</div>\n<div class=\"ttl\">Warning Signs</div>\n<div class=\"sub\">When to call your GP and when to go straight to Emergency — know the difference</div>\n<div class=\"bdg\">⚠️</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"cred\">&#128680; Under 3 months: temperature 38°C or above = Emergency Department immediately. Do not call first. Do not wait.</div>\n</div>\n<div class=\"sec\">\n<div class=\"tc\">\n<div>\n<div class=\"sla\">Go to ED Now &#9888;</div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Temp 38°C+ (any baby under 3 months)</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Difficulty breathing — fast, grunting, ribs showing, blue lips or nails</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Won't wake for feeds / floppy &amp; unresponsive</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Jaundice spreading rapidly below belly button</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Pale, grey, mottled (blotchy) or blue skin</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Red or white / pale chalky poo</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Seizure or uncontrolled shaking</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Sunken fontanelle + no wet nappy for 8+ hrs</span></div>\n</div>\n<div>\n<div class=\"sl\" style=\"color:#C8860A\">Call GP Today</div>\n<div class=\"ck\"><span class=\"am\">&#8594;</span><span>Jaundice first appearing after 2 weeks</span></div>\n<div class=\"ck\"><span class=\"am\">&#8594;</span><span>Temp 37.5–37.9°C — monitor closely</span></div>\n<div class=\"ck\"><span class=\"am\">&#8594;</span><span>Repeatedly refusing feeds</span></div>\n<div class=\"ck\"><span class=\"am\">&#8594;</span><span>Fewer wet nappies than expected</span></div>\n<div class=\"ck\"><span class=\"am\">&#8594;</span><span>Dark or smelly wee after day 5</span></div>\n<div class=\"ck\"><span class=\"am\">&#8594;</span><span>Cord stump red, hot, swollen or smelly</span></div>\n<div class=\"ck\"><span class=\"am\">&#8594;</span><span>Persistent green vomit (not just spill)</span></div>\n<div class=\"ck\"><span class=\"am\">&#8594;</span><span>Any concern that feels wrong — trust your gut</span></div>\n</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"tc\">\n<div>\n<div class=\"sl\">Jaundice — How to Check</div>\n<div class=\"callout\">In good natural light, press gently on baby's forehead or nose. If the skin looks yellow where you pressed, likely jaundice. Starts on face, moves downward.</div>\n<div class=\"b\"><div class=\"bd\"></div><span>Yellow skin or whites of eyes</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Sleepy, hard to rouse for feeds</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Dark wee or very pale poo</span></div>\n</div>\n<div>\n<div class=\"sl\">Dehydration Signs</div>\n<div class=\"b\"><div class=\"bd\"></div><span>Fewer wet nappies than expected for age</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Dark yellow or smelly wee</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Dry mouth or dry lips</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Sunken fontanelle (soft spot)</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Lethargic or unusually hard to rouse</span></div>\n<div class=\"cred\" style=\"margin-top:5px\">Never give water under 6 months — breast milk or formula only.</div>\n</div>\n</div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "Hunger & Tired Cues", "emoji": "👶", "desc": "Reading baby's early signals", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 6 of 10</div>\n<div class=\"ttl\">Hunger & Tired Cues</div>\n<div class=\"sub\">Reading your baby's signals before they escalate to crying</div>\n<div class=\"bdg\">👁</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"cgrn\">Don't wait for crying — it's a late signal. Baby is already stressed. Act on early cues and feeding and settling will be far easier.</div>\n</div>\n<div class=\"sec\">\n<div class=\"tc\">\n<div>\n<div class=\"sl\">Hunger Cues — Feed Now</div>\n<div class=\"slg\">Early — act immediately</div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>Stirring or waking from sleep</span></div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>Mouth opening, tongue moving</span></div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>Rooting — turning head, nuzzling</span></div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>Hands moving to mouth</span></div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>Sucking on fist or fingers</span></div>\n<div class=\"slg\" style=\"margin-top:8px\">Late — still feed, but calm first</div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Fussing and squirming</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Crying (rhythmic, builds in waves)</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Flushed face, frantic rooting</span></div>\n</div>\n<div>\n<div class=\"sl\">Tired Cues — Settle Soon</div>\n<div class=\"slg\">Early — put to sleep now</div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>1–2 yawns</span></div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>Slowing movements, glazed look</span></div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>Turning head away from stimulation</span></div>\n<div class=\"ck\"><span class=\"cm\">&#8594;</span><span>Blinking slowly, losing interest</span></div>\n<div class=\"slg\" style=\"margin-top:8px\">Overtired — much harder to settle</div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Pulling at ears</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Rubbing eyes</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Arching back or stiffening</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Grizzling or inconsolable</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Jerky, uncoordinated movements</span></div>\n</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Reading the Cry</div>\n<div class=\"tc\">\n<div class=\"cgrn\"><strong>Hunger cry:</strong> Rhythmic and repetitive, builds gradually. Settles quickly when feeding begins.</div>\n<div class=\"cred\"><strong>Pain cry:</strong> Sudden, high-pitched, inconsolable. Doesn't settle. Trust your instincts — get help if unsure.</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Growth Spurts — Expect More of Everything</div>\n<div class=\"b\"><div class=\"bd\"></div><span>More feeding, more fussiness, possible disrupted sleep — usually lasts 2–4 days</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Typical timing: days 7–10, weeks 2–3, weeks 4–6, and 3 months</span></div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "How to Settle", "emoji": "🤲", "desc": "Step-by-step settling guide", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 7 of 10</div>\n<div class=\"ttl\">How to Settle</div>\n<div class=\"sub\">A 10-step checklist for a crying baby — work through it calmly</div>\n<div class=\"bdg\">🤱</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"sl\">Work Through This — In Order</div>\n<div class=\"tc\">\n<div>\n<div class=\"row\"><div class=\"nc\">1</div><div class=\"rt\"><strong>Fed recently?</strong><span class=\"rs\">Hunger is #1. Offer a feed first, always.</span></div></div>\n<div class=\"row\"><div class=\"nc\">2</div><div class=\"rt\"><strong>Nappy clean?</strong><span class=\"rs\">Check and change if needed.</span></div></div>\n<div class=\"row\"><div class=\"nc\">3</div><div class=\"rt\"><strong>Bring up wind</strong><span class=\"rs\">Over shoulder, firm pat and rub. Give it 5 full minutes.</span></div></div>\n<div class=\"row\"><div class=\"nc\">4</div><div class=\"rt\"><strong>Temperature OK?</strong><span class=\"rs\">Check back of neck. Warm not sweaty. Adjust layers. See Poster 8.</span></div></div>\n<div class=\"row\"><div class=\"nc\">5</div><div class=\"rt\"><strong>Overstimulated?</strong><span class=\"rs\">Dim lights, reduce noise, move to quieter room.</span></div></div>\n</div>\n<div>\n<div class=\"row\"><div class=\"nc\">6</div><div class=\"rt\"><strong>Wrap / swaddle</strong><span class=\"rs\">If under 3 months and not rolling. Arms down, hips loose.</span></div></div>\n<div class=\"row\"><div class=\"nc\">7</div><div class=\"rt\"><strong>White noise + rocking</strong><span class=\"rs\">Rhythmic shushing or white noise app. Gentle sway or rock.</span></div></div>\n<div class=\"row\"><div class=\"nc\">8</div><div class=\"rt\"><strong>Skin-to-skin</strong><span class=\"rs\">Undressed baby on bare chest. Regulates temp &amp; heartbeat.</span></div></div>\n<div class=\"row\"><div class=\"nc\">9</div><div class=\"rt\"><strong>Dummy</strong><span class=\"rs\">Safe and effective for non-nutritive sucking at this age.</span></div></div>\n<div class=\"row\"><div class=\"nc\">10</div><div class=\"rt\"><strong>Pram or car</strong><span class=\"rs\">Motion and fresh air. Works when nothing else does.</span></div></div>\n</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"tc\">\n<div>\n<div class=\"sl\">Normal Unsettled Periods</div>\n<div class=\"b\"><div class=\"bd\"></div><span><strong>Evening fussing 4–8pm</strong> — cluster feeding, normal. Go with it.</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span><strong>Purple Crying</strong> — peaks 6–8 wks, eases by 3–4 months. Healthy baby, normal developmental phase.</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span><strong>Growth spurts</strong> at days 7–10, wks 2–3, wks 4–6, 3 months.</span></div>\n</div>\n<div>\n<div class=\"sl\">If Nothing Works</div>\n<div class=\"callout\">It is always safe to put baby down in the cot and step away for 5 minutes. You cannot soothe a crying baby when you are at breaking point.</div>\n<div class=\"b\"><div class=\"bd\"></div><span>Tag-team with your partner</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Tresillian: <strong>1300 272 736</strong></span></div>\n</div>\n</div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "Winter Dressing", "emoji": "🧣", "desc": "TOG guide & room temperature", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 8 of 10</div>\n<div class=\"ttl\">Winter Dressing</div>\n<div class=\"sub\">TOG guide, layering by room temperature, and how to check for overheating</div>\n<div class=\"bdg\">🧣</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"sl\">How to Check Temperature — Always This Way</div>\n<div class=\"tc\">\n<div class=\"cgrn\"><strong>&#10003; Check here:</strong> Back of neck or tummy. Should feel warm but not sweaty. Sweaty = remove a layer.</div>\n<div class=\"cred\"><strong>&#10007; Not here:</strong> Hands and feet always feel cool — they don't reflect core body temperature.</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">TOG Sleeping Bag Guide</div>\n<div class=\"tog-row\"><div class=\"tog-v\">0.5</div><div><div class=\"tog-n\">Warm nights — 24°C and above</div><div class=\"tog-d\">Short-sleeve onesie + 0.5 TOG bag</div></div></div>\n<div class=\"tog-row\"><div class=\"tog-v\">1.0</div><div><div class=\"tog-n\">Mild nights — 21–23°C</div><div class=\"tog-d\">Short-sleeve onesie + 1.0 TOG bag</div></div></div>\n<div class=\"tog-row\" style=\"border-color:#4A7C6F;background:#E8F4F0\"><div class=\"tog-v\" style=\"color:#4A7C6F\">2.5</div><div><div class=\"tog-n\" style=\"color:#2D6B60\">Sydney winter — 16–20°C &#10003; This is you</div><div class=\"tog-d\">Singlet + long-sleeve sleepsuit + 2.5 TOG bag</div></div></div>\n<div class=\"tog-row\"><div class=\"tog-v\">3.5</div><div><div class=\"tog-n\">Cold nights — below 16°C</div><div class=\"tog-d\">Singlet + sleepsuit + extra layer + 3.5 TOG bag</div></div></div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Layering Guide — One More Than You</div>\n<div class=\"callout\" style=\"margin-bottom:8px\">Dress baby in one more layer than you'd wear comfortably in the same room.</div>\n<table class=\"ntbl\">\n<thead><tr><th>Room temp</th><th>What to wear for sleep</th></tr></thead>\n<tbody>\n<tr><td class=\"dc\">20°C+</td><td>Singlet + short-sleeve sleepsuit + 1.0 TOG sleeping bag</td></tr>\n<tr><td class=\"dc\">16–20°C</td><td>Singlet + long-sleeve sleepsuit + 2.5 TOG sleeping bag</td></tr>\n<tr><td class=\"dc\">&lt;16°C</td><td>Singlet + sleepsuit + light layer + 2.5–3.5 TOG bag</td></tr>\n</tbody>\n</table>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"tc\">\n<div>\n<div class=\"sl\">Ideal Sleep Room Temp</div>\n<div style=\"text-align:center;margin:4px 0 8px\"><span style=\"font-family:'Fraunces',serif;font-size:30px;font-weight:900;color:#B8553C\">16–20°C</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Use a room thermometer — cheap from Kmart or Big W</span></div>\n<div class=\"b\"><div class=\"bd\"></div><span>Heater on low if needed — not pointed at the cot</span></div>\n</div>\n<div>\n<div class=\"sla\">Never Use &#10007;</div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Electric blankets</span></div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Hot water bottles</span></div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Wheat bags or heat packs</span></div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Heater aimed at cot</span></div>\n<div class=\"ck\"><span class=\"xm\">&#10007;</span><span>Heavy doonas or loose blankets</span></div>\n<div class=\"camb\" style=\"margin-top:5px\">Overheating is a SIDS risk. When in doubt, go cooler not warmer.</div>\n</div>\n</div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "Weekly Care", "emoji": "🛁", "desc": "Daily tasks, cord care, appointments", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 9 of 10</div>\n<div class=\"ttl\">Weekly Care</div>\n<div class=\"sub\">Daily tasks, bath schedule, cord care, and key Australian appointments</div>\n<div class=\"bdg\">🛁</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"sl\">Every Day</div>\n<div class=\"tc\">\n<div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Nappy changes (8–12 per day)</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Top &amp; tail wash — face, neck folds, hands, nappy area — with warm water and a washer</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Check cord stump — keep dry, no redness or smell</span></div>\n</div>\n<div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Check skin folds for rash or redness (neck, underarms, groin)</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Tummy time (awake &amp; supervised)</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Skin-to-skin time — as much as you like</span></div>\n</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Every 2–3 Days (Not Daily)</div>\n<div class=\"callout\">Daily bathing dries out newborn skin. Two to three times a week is plenty for the first few months.</div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Warm bath — 37°C, test with elbow. No soap needed in first weeks, or use fragrance-free baby wash.</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Hair every second or third bath — no need every time.</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Pat dry gently in all skin folds — moisture causes rash.</span></div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Cord Stump Care</div>\n<div class=\"tc\">\n<div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Keep dry — sponge baths only until it falls off</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Fold nappy waistband down below it</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Falls off in 1–3 weeks — don't pull it</span></div>\n</div>\n<div>\n<div class=\"ck\"><span class=\"xm\">&#8594;</span><span>See GP if: red, hot, smelly, oozing pus, or not fallen by 4 weeks</span></div>\n<div class=\"ck\"><span class=\"cm\">&#10003;</span><span>Nails: file (not clip) from ~week 2. Easiest when sleeping.</span></div>\n</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sl\">Key Australian Appointments — First 3 Months</div>\n<table class=\"ntbl\">\n<thead><tr><th>When</th><th>What</th></tr></thead>\n<tbody>\n<tr><td class=\"dc\" style=\"width:90px\">In hospital</td><td>Newborn exam, hearing screen, heel prick test, Vitamin K injection, Hep B vaccine</td></tr>\n<tr><td class=\"dc\">Days 3–5</td><td>Midwife home visit — weight, feeding check, jaundice check</td></tr>\n<tr><td class=\"dc\">~2 weeks</td><td>GP visit — weight gain, feeding, maternal wellbeing (Edinburgh screen)</td></tr>\n<tr><td class=\"dc\">6 weeks</td><td>Maternal &amp; child health nurse check + GP 6-week check. Immunisations discussion.</td></tr>\n<tr><td class=\"dc\">2 months</td><td>First immunisations (6-in-1, rotavirus, meningococcal B) — book now</td></tr>\n</tbody>\n</table>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}, {"title": "Milestones", "emoji": "⭐", "desc": "Week by week — first 3 months", "html": "<div class=\"hdr\">\n<div class=\"eye\">Newborn Reference · Poster 10 of 10</div>\n<div class=\"ttl\">Milestones</div>\n<div class=\"sub\">What to expect and enjoy in the first three months — week by week</div>\n<div class=\"bdg\">⭐</div>\n</div>\n<div class=\"con\">\n\n<div class=\"sec\">\n<div class=\"ms-lbl\">Weeks 1–2</div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Can see 20–30cm — exactly face distance while feeding. Stares at your face.</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Moro reflex — startles at loud sounds, arms fling out. Normal protective reflex.</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Rooting, sucking and grasping reflexes all present from birth.</span></div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"ms-lbl\">Weeks 3–4</div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>More alert periods each day — eyes more open and tracking slowly.</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>May briefly focus and settle gaze on your face.</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Crying may peak around week 3–4. Normal. It will ease.</span></div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"ms-lbl\" style=\"color:#B8553C\">Weeks 5–6 — The Big One &#11088;</div>\n<div class=\"callout\"><strong>Social smile appears at around 6 weeks</strong> — the first real smile in response to your face or voice. Not wind. The moment that changes everything.</div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Briefly follows moving objects with eyes across midline.</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Head bobs when held upright — gaining control. More tummy time progress.</span></div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"ms-lbl\">Weeks 7–12</div>\n<div class=\"tc\">\n<div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Cooing and \"talking back\" — makes sounds in response to your voice</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Recognises your face and voice consistently</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Discovering hands — stares at them, brings to mouth</span></div>\n</div>\n<div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Pushes up on forearms during tummy time</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Laugh-like sounds emerging from ~10 weeks</span></div>\n<div class=\"b\"><div class=\"bdg2\"></div><span>Sleep may slightly consolidate at 3 months</span></div>\n</div>\n</div>\n</div>\n<div class=\"div\"></div>\n<div class=\"sec\">\n<div class=\"sla\">Red Flags — Discuss with GP</div>\n<div class=\"tc\">\n<div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>No social smile by 8–10 weeks</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Not tracking faces with eyes by 6–8 weeks</span></div>\n</div>\n<div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Doesn't respond to familiar voices or sounds</span></div>\n<div class=\"ck\"><span class=\"xm\">!</span><span>Very stiff or very floppy (not normal for age)</span></div>\n</div>\n</div>\n</div>\n\n</div>\n<div class=\"ftr\">\n<div class=\"hl\"><span class=\"ho\">Breastfeeding — ABA</span><span class=\"hn\">1800 686 268</span><span class=\"hno\">24 hours, 7 days</span></div>\n<div class=\"hl\"><span class=\"ho\">Pregnancy Birth &amp; Baby</span><span class=\"hn\">1800 882 436</span><span class=\"hno\">24 hours, 7 days</span></div>\n</div>"}];
+
+const homeEl = document.getElementById('home');
+const posterViewEl = document.getElementById('poster-view');
+const posterListEl = document.getElementById('poster-list');
+const pvTabsEl = document.getElementById('pv-tabs');
+const pvPosterEl = document.getElementById('pv-poster');
+
+let currentIdx = 0;
+
+// Build home list
+POSTERS.forEach((p, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'poster-btn';
+  btn.innerHTML = `
+    <div class="p-num">${i+1}</div>
+    <div class="p-info">
+      <div class="p-name">${p.title}</div>
+      <div class="p-desc">${p.desc}</div>
+    </div>
+    <div class="p-arr">›</div>
+  `;
+  btn.addEventListener('click', () => showPoster(i));
+  posterListEl.appendChild(btn);
+});
+
+// Build tabs
+POSTERS.forEach((p, i) => {
+  const tab = document.createElement('button');
+  tab.className = 'pv-tab';
+  tab.dataset.idx = i;
+  tab.textContent = (i+1) + '. ' + p.title;
+  tab.addEventListener('click', () => showPoster(i));
+  pvTabsEl.appendChild(tab);
+});
+
+function showPoster(idx) {
+  currentIdx = idx;
+  // Inject poster HTML
+  pvPosterEl.innerHTML = POSTERS[idx].html;
+  // Update tabs
+  document.querySelectorAll('.pv-tab').forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+  // Scroll active tab into view
+  const activeTab = pvTabsEl.children[idx];
+  if (activeTab) {
+    activeTab.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+  }
+  // Show poster view
+  homeEl.style.display = 'none';
+  posterViewEl.style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function showHome() {
+  posterViewEl.style.display = 'none';
+  homeEl.style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+// Handle browser back button
+window.addEventListener('popstate', () => {
+  if (posterViewEl.style.display !== 'none') {
+    showHome();
+  }
+});
+</script>
+</body>
+</html>
